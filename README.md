@@ -1,10 +1,13 @@
-# Fakeable Plugin
+<p align="center">
+  <img src="logo.png" alt="logo fakeable" width="300">
+</p>
+<br>
 
-The **Fakeable Plugin** is designed to simplify writing tests by automatically generating fake instances of your Swift types (structs, classes, and enums). By using this macro during testing, you can quickly obtain test objects with default or random values for all their properties, reducing boilerplate code and speeding up your test writing process.
+The **Fakeable** macro is designed to simplify writing tests by automatically generating fake instances of your Swift types (structs, classes, and enums). By using this macro during testing, you can quickly obtain test objects with default or random values for all their properties, reducing boilerplate code and speeding up your test writing process.
 
 ## Overview
 
-The Fakeable Plugin automatically generates a static `fake` method on your types. This method creates an instance of the type with generated values, which can be used in your tests. Its primary purpose is to simplify test setup by providing a quick way to obtain valid (or randomized) objects for testing.
+The Fakeable macro automatically generates a static `fake` method on your types. This method creates an instance of the type with generated values, which can be used in your tests. Its primary purpose is to simplify test setup by providing a quick way to obtain valid (or randomized) objects for testing.
 
 ## Installation
 
@@ -34,20 +37,50 @@ Annotate your types with the `@Fakeable` macro to enable fake instance generatio
 import Fakeable
 
 @Fakeable
-struct User {
-    let id: String
-    let name: String
-    let age: Int
+struct Address {
+    let street: String
+    let city: String?
+    let zipCode: Int?
+    let date: Date
 }
 ```
 
-Once the macro is applied, a `static func fake() -> User` method is automatically generated. In your tests, you can simply create a fake instance with:
+Once the macro is applied, a `static func fake() -> User` method is automatically generated. 
+```swift
+#if DEBUG
+static func fake(
+    street: String = UUID().uuidString,
+    city: String? = UUID().uuidString,
+    zipCode: Int? = Int.random(in: -1000 ... 1000),
+    date: Date = Calendar.current.date(from: DateComponents(year: Int.random(in: 1970 ... 2030), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!
+) -> Address {
+    return Address(
+        street: street,
+        city: city,
+        zipCode: zipCode,
+        date: date
+    )
+}
+#endif
+```
+
+In your tests, you can simply create a fake instance with:
 
 ```swift
-let fakeUser = User.fake()
+let fakeAddress = Address.fake()
+let fakeAddressWithCustomParameters = Address.fake(city: nil, zipCode: 5030)
 ```
 
 This makes it much easier to set up tests without manually initializing each property.
+
+## Macro Parameters
+
+The macro supports the following parameters:
+
+- `collectionCount`: The number of elements to generate for collections. Default value: `5`.
+- `behindPreprocessorFlag`: A string flag that wraps the generated code in a preprocessor directive. Default value: `DEBUG`.
+
+These parameters allow fine-tuning of the macro's behavior to better fit your testing needs.
 
 ## Supported Types
 
