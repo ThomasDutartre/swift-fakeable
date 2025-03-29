@@ -31,7 +31,7 @@ let package = Package(
                 .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
             ]
         ),
-        
+
         // Macro implementation that performs the source transformation of a macro.
         .macro(
             name: "FakeableBridge",
@@ -68,5 +68,3 @@ let package = Package(
         )
     ]
 )
-
-

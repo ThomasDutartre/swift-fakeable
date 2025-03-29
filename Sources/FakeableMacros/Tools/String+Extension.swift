@@ -21,7 +21,7 @@ public extension String {
     var isDictionary: Bool {
         self.hasPrefix("[") && self.contains(":") && self.hasSuffix("]")
     }
-    
+
     var isTuple: Bool {
         self.hasPrefix("(") && self.hasSuffix(")") && self.contains(",")
     }
@@ -45,10 +45,10 @@ public extension String {
 
     var dictionaryKeyValue: (String, String) {
         guard isDictionary else { return ("String", "Any") }
-        
+
         // Supprimer les crochets externes
         let trimmed = self.dropFirst().dropLast()
-        
+
         // Trouver l'index du `:` principal
         var bracketLevel = 0
         var colonIndex: String.Index?
@@ -93,5 +93,3 @@ public extension String {
         return elements
     }
 }
-
-

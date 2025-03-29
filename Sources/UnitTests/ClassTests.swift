@@ -1,4 +1,4 @@
-﻿import Testing
+import Testing
 import MacroTesting
 @testable import FakeableMacros
 
@@ -34,7 +34,7 @@ struct ClassTests {
                     street: String = UUID().uuidString,
                     city: String? = UUID().uuidString,
                     zipCode: Int? = Int.random(in: -1000 ... 1000),
-                    date: Date = Calendar.current.date(from: DateComponents(year: Int.random(in: 2000 ... 2025), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!
+                    date: Date = Calendar.current.date(from: DateComponents(year: Int.random(in: 1970 ... 2030), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!
                 ) -> Address {
                     return Address(
                         street: street,
@@ -83,10 +83,11 @@ struct ClassTests {
                     self.array = array
                 }
 
+                #if DEBUG
                 static func fake(
                     city: String? = UUID().uuidString,
                     zipCode: Int? = Int.random(in: -1000 ... 1000),
-                    date: Date = Calendar.current.date(from: DateComponents(year: Int.random(in: 2000 ... 2025), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!,
+                    date: Date = Calendar.current.date(from: DateComponents(year: Int.random(in: 1970 ... 2030), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!,
                     array: [String] = [UUID().uuidString, UUID().uuidString, UUID().uuidString, UUID().uuidString, UUID().uuidString]
                 ) -> MyClass {
                     return MyClass(
@@ -96,11 +97,12 @@ struct ClassTests {
                     array: array
                     )
                 }
+                #endif
             }
             """
         }
     }
-    
+
     @Test
     func testEnumBasicBehindPreprocessorFlagCustom() {
         assertMacro {
@@ -139,7 +141,7 @@ struct ClassTests {
                 static func fake(
                     city: String? = UUID().uuidString,
                     zipCode: Int? = Int.random(in: -1000 ... 1000),
-                    date: Date = Calendar.current.date(from: DateComponents(year: Int.random(in: 2000 ... 2025), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!,
+                    date: Date = Calendar.current.date(from: DateComponents(year: Int.random(in: 1970 ... 2030), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!,
                     array: [String] = [UUID().uuidString, UUID().uuidString, UUID().uuidString, UUID().uuidString, UUID().uuidString]
                 ) -> MyClass {
                     return MyClass(
@@ -154,7 +156,7 @@ struct ClassTests {
             """
         }
     }
-    
+
     @Test
     func testEnumBasicCollectionCountCustom() {
         assertMacro {
@@ -193,7 +195,7 @@ struct ClassTests {
                 static func fake(
                     city: String? = UUID().uuidString,
                     zipCode: Int? = Int.random(in: -1000 ... 1000),
-                    date: Date = Calendar.current.date(from: DateComponents(year: Int.random(in: 2000 ... 2025), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!,
+                    date: Date = Calendar.current.date(from: DateComponents(year: Int.random(in: 1970 ... 2030), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!,
                     array: [String] = [UUID().uuidString, UUID().uuidString]
                 ) -> MyClass {
                     return MyClass(
@@ -208,7 +210,7 @@ struct ClassTests {
             """
         }
     }
-    
+
     @Test
     func testClassComplex() {
         assertMacro {
@@ -257,7 +259,7 @@ struct ClassTests {
               let set2: Set<Int>?
               let dictionary1: [String: Int]?
               let dictionary2: [String: Address]?
-              
+
               let tupleValue: (String, Int)?
               let nestedDictionary: [String: [Int]]?
               let enumValue: MyEnum
@@ -312,7 +314,7 @@ struct ClassTests {
                 let set2: Set<Int>?
                 let dictionary1: [String: Int]?
                 let dictionary2: [String: Address]?
-                
+
                 let tupleValue: (String, Int)?
                 let nestedDictionary: [String: [Int]]?
                 let enumValue: MyEnum
@@ -355,7 +357,7 @@ struct ClassTests {
                     nsData: NSData? = Data((0 ..< 10).map { _ in
                             UInt8.random(in: 0 ... 255)
                         }) as NSData,
-                    nsDate: NSDate? = (Calendar.current.date(from: DateComponents(year: Int.random(in: 2000 ... 2025), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!) as NSDate,
+                    nsDate: NSDate? = (Calendar.current.date(from: DateComponents(year: Int.random(in: 1970 ... 2030), month: Int.random(in: 1 ... 12), day: Int.random(in: 1 ... 28)))!) as NSDate,
                     nsNumber: NSNumber? = NSNumber(value: Int.random(in: 0 ... 1000)),
                     array1: [String]? = [UUID().uuidString, UUID().uuidString, UUID().uuidString, UUID().uuidString, UUID().uuidString],
                     array2: [Address]? = [Address.fake(), Address.fake(), Address.fake(), Address.fake(), Address.fake()],
@@ -425,5 +427,3 @@ struct ClassTests {
         }
     }
 }
-
-

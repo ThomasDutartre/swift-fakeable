@@ -1,4 +1,4 @@
-﻿import Fakeable
+import Fakeable
 import Foundation
 
 @Fakeable(collectionCount: 3, behindPreprocessorFlag: nil)
@@ -69,7 +69,7 @@ struct MyStruct {
     let set2: Set<Int>?
     let dictionary1: [String: Int]?
     let dictionary2: [String: Address]?
-    
+
     let tupleValue: (String, Int)?
     let nestedDictionary: [String: [Int]]?
     let enumValue: MyEnum
@@ -89,7 +89,7 @@ enum MyEnum {
     case enumOpt(child: String?)
     case array(array: [String])
     case arrayOpt(array: [String]?)
-    
+
     case int(value: Int)
     case double(value: Double)
     case bool(value: Bool)
@@ -118,5 +118,3 @@ for _ in 0..<10 {
     print(MyEnum.fake())
     print(MyClass.fake())
 }
-
-

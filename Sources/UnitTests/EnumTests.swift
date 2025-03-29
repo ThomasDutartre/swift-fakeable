@@ -1,4 +1,4 @@
-﻿import Testing
+import Testing
 import MacroTesting
 @testable import FakeableMacros
 
@@ -20,30 +20,29 @@ struct EnumTests {
           }
           """
         } expansion: {
-          """
-          enum ChildEnum: String {
-              case child = "abc"
-              case sister = "sis"
+            """
+            enum ChildEnum: String {
+                case child = "abc"
+                case sister = "sis"
 
-              #if DEBUG
-              static func fake(forcedCase: ChildEnum? = nil) -> ChildEnum {
-                  if let forcedCase = forcedCase {
-                      return forcedCase
-                  }
-
-                  let cases: [() -> ChildEnum] = [
-                      {
-                          .child
-                      },
-                      {
-                          .sister
-                      }
-                  ]
-                  return cases.randomElement()!()
-              }
-              #endif
-          }
-          """
+                #if DEBUG
+                static func fake(forcedCase: ChildEnum? = nil) -> ChildEnum {
+                    if let forcedCase = forcedCase {
+                        return forcedCase
+                    }
+                    let cases: [() -> ChildEnum] = [
+                        {
+                            .child
+                        },
+                        {
+                            .sister
+                        }
+                    ]
+                    return cases.randomElement()!()
+                }
+                #endif
+            }
+            """
         }
     }
 
@@ -61,11 +60,11 @@ struct EnumTests {
             enum ChildEnum: String {
                 case child = "abc"
 
+                #if DEBUG
                 static func fake(forcedCase: ChildEnum? = nil) -> ChildEnum {
                     if let forcedCase = forcedCase {
                         return forcedCase
                     }
-
                     let cases: [() -> ChildEnum] = [
                         {
                             .child
@@ -73,11 +72,12 @@ struct EnumTests {
                     ]
                     return cases.randomElement()!()
                 }
+                #endif
             }
             """
         }
     }
-    
+
     @Test
     func testEnumBasicBehindPreprocessorFlagCustom() {
         assertMacro {
@@ -97,7 +97,6 @@ struct EnumTests {
                     if let forcedCase = forcedCase {
                         return forcedCase
                     }
-
                     let cases: [() -> ChildEnum] = [
                         {
                             .child
@@ -110,7 +109,7 @@ struct EnumTests {
             """
         }
     }
-    
+
     @Test
     func testEnumBasicCollectionCountCustom() {
         assertMacro {
@@ -130,7 +129,6 @@ struct EnumTests {
                       if let forcedCase = forcedCase {
                           return forcedCase
                       }
-
                       let cases: [() -> ChildEnum] = [
                           {
                                 .array(array: [UUID().uuidString, UUID().uuidString])
@@ -143,7 +141,7 @@ struct EnumTests {
             """
         }
     }
-    
+
     @Test
     func testComplexEnum() {
         assertMacro {
@@ -158,7 +156,7 @@ struct EnumTests {
                 case enumOpt(child: String?)
                 case array(array: [String])
                 case arrayOpt(array: [String]?)
-                
+
                 case int(value: Int)
                 case double(value: Double)
                 case bool(value: Bool)
@@ -182,7 +180,7 @@ struct EnumTests {
                 case enumOpt(child: String?)
                 case array(array: [String])
                 case arrayOpt(array: [String]?)
-                
+
                 case int(value: Int)
                 case double(value: Double)
                 case bool(value: Bool)
@@ -199,7 +197,6 @@ struct EnumTests {
                     if let forcedCase = forcedCase {
                         return forcedCase
                     }
-
                     let cases: [() -> MyEnum] = [
                         {
                             .fake
@@ -264,5 +261,3 @@ struct EnumTests {
         }
     }
 }
-
-

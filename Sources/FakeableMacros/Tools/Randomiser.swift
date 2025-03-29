@@ -1,4 +1,4 @@
-﻿struct Randomiser {
+struct Randomiser {
     private static let commonTypes: [String: String] = [
         "String": "UUID().uuidString",
         "Int": "Int.random(in: -1000...1000)",
@@ -6,7 +6,7 @@
         "Float": "Float.random(in: -1000...1000)",
         "Decimal": "Decimal(Double.random(in: -1000...1000))",
         "Bool": "Bool.random()",
-        "Date": "Calendar.current.date(from: DateComponents(year: Int.random(in: 2000...2025), month: Int.random(in: 1...12), day: Int.random(in: 1...28)))!",
+        "Date": "Calendar.current.date(from: DateComponents(year: Int.random(in: 1970...2030), month: Int.random(in: 1...12), day: Int.random(in: 1...28)))!",
         "URL": "URL(string: \"https://www.\\(UUID().uuidString.prefix(8)).com\")!"
     ]
 
@@ -47,5 +47,3 @@
         }
     }
 }
-
-

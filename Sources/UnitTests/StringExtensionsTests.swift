@@ -3,7 +3,7 @@
 
 @Suite
 struct StringExtensionsTests {
-    
+
     @Test
     func testIsOptional() {
         #expect("String?".isOptional == true)
@@ -76,5 +76,3 @@ struct StringExtensionsTests {
         #expect("(String, (Int, [Bool]))".tupleElements == ["String", "(Int, [Bool])"])
     }
 }
-
-

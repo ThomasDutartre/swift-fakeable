@@ -6,7 +6,7 @@
 public struct FakeableParameters: Sendable {
     public var collectionCount: Int
     public var behindPreprocessorFlag: String?
-    
+
     public init(
         collectionCount: Int = FakeableDefaultValues.collectionCount,
         behindPreprocessorFlag: String = FakeableDefaultValues.behindPreprocessorFlag
@@ -15,5 +15,3 @@ public struct FakeableParameters: Sendable {
         self.behindPreprocessorFlag = behindPreprocessorFlag
     }
 }
-
-
