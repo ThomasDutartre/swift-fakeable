@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="logo fakeable" width="300">
+  <img src="https://raw.githubusercontent.com/ThomasDutartre/assets/refs/heads/main/swift-fakeable-logo.png" alt="logo fakeable" width="300">
 </p>
 <br>
 
